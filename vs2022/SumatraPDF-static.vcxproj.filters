@@ -755,6 +755,9 @@
     <ClCompile Include="..\src\EnginePs.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\EngineTex.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="..\src\EutlTrust.cpp">
       <Filter>src</Filter>
     </ClCompile>

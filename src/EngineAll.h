@@ -183,6 +183,11 @@ bool IsEnginePsAvailable();
 bool IsEnginePsSupportedFileType(FileType);
 EngineBase* CreateEnginePsFromFile(Str fileName);
 
+bool IsEngineTexAvailable();
+EngineBase* CreateEngineTexFromFile(Str fileName);
+TempStr EngineTexLastErrorTemp(Str path);
+Str EngineTexPdfPath(EngineBase*);
+
 bool IsSupportedFileType(FileType kind, bool enableEngineEbooks);
 
 EngineBase* CreateEngineFromFile(Str filePath, PasswordUI* pwdUI, bool enableChmEngine);

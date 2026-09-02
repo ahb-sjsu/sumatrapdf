@@ -8,7 +8,7 @@ SumatraPDF supports the following document types:
   - MOBI / Kindle (.mobi, and unencrypted .azw, .azw3, .prc); Print Replica (.azw4) opens as the wrapped PDF
   - FictionBook (.fb2, .fb2z, .fbz, .zfb2, .fb2.zip)
   - Palm DOC (.pdb)
-  - plain text (.txt, .log, .nfo, .tcr, …)
+  - plain text (.txt, .log, .nfo, .tcr, …), including BibTeX and LaTeX support files (.bib, .sty, .cls, .bst)
 - Markdown (.md, .markdown), rendered as GitHub Flavored Markdown
 - comic book files: .cbz, .cbr, .cbt, .cb7 (and .ora) — see [Comics and manga](Comics-and-manga.md)
 - archive files (.zip, .rar, .7z, .tar) containing images
@@ -32,6 +32,8 @@ SumatraPDF supports the following document types:
   - HEIF / HEIC (.heic, .heif) — built-in decoder; see below
 
 If [Ghostscript](https://ghostscript.com/) is installed, we support PostScript (.ps, .eps) and PJL (Printer Job Language) files.
+
+If a TeX distribution ([MiKTeX](https://miktex.org/) or [TeX Live](https://tug.org/texlive/)) is installed, LaTeX sources (.tex, .ltx, .latex) are compiled and shown as the typeset PDF; see [LaTeX documents](LaTeX-documents.md). Without one they open as plain text.
 
 ## HEIF / HEIC support
 

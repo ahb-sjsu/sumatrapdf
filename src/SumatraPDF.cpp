@@ -2241,7 +2241,8 @@ static bool ShouldUsePageAspectForView(Str path) {
         return false;
     }
     FileType ft = GuessFileTypeFromName(path, true);
-    return ft == FileType::PDF || ft == FileType::Xps || ft == FileType::DjVu || ft == FileType::PS;
+    return ft == FileType::PDF || ft == FileType::Xps || ft == FileType::DjVu || ft == FileType::PS ||
+           ft == FileType::Tex;
 }
 
 static void ApplyPageAspectView(EngineBase* engine, DisplayMode* modeOut, float* zoomOut) {
@@ -3651,6 +3652,11 @@ static void MarkFileOpenedOk(Str path) {
 // cheap to tell apart by trying to open it the way the engines do. Anything
 // that opens but doesn't load is a format we don't handle or a damaged file.
 static TempStr FileLoadErrorReasonTemp(Str path) {
+    // a .tex that exists but didn't compile: the LaTeX error beats "not supported"
+    TempStr texErr = EngineTexLastErrorTemp(path);
+    if (texErr) {
+        return texErr;
+    }
     if (!file::Exists(path)) {
         return str::DupTemp(_TRA("The file does not exist"));
     }
@@ -5922,6 +5928,8 @@ static bool AppendFileFilterForDoc(DocController* ctrl, str::Builder& fileFilter
         return false; // only show "All files"
     } else if (type == kindEnginePostScript) {
         fileFilter.Append(_TRA("PostScript documents"));
+    } else if (type == kindEngineTex) {
+        fileFilter.Append(_TRA("LaTeX documents"));
     } else if (type == kindEngineChm) {
         fileFilter.Append(_TRA("CHM documents"));
     } else if (type == kindEngineEpub) {
@@ -6554,6 +6562,7 @@ static void BuildOpenFileFilters(OpenFileFilterList& out) {
         {_TRA("XPS documents"), StrL("*.xps;*.oxps"), true},
         {_TRA("DjVu documents"), StrL("*.djvu"), true},
         {_TRA("PostScript documents"), StrL("*.ps;*.eps"), IsEnginePsAvailable()},
+        {_TRA("LaTeX documents"), StrL("*.tex;*.ltx;*.latex"), true},
         {_TRA("Comic books"), StrL("*.cbz;*.cbr;*.cb7;*.cbt"), true},
         {_TRA("CHM documents"), StrL("*.chm"), true},
         {_TRA("SVG documents"), StrL("*.svg"), true},
@@ -6567,7 +6576,7 @@ static void BuildOpenFileFilters(OpenFileFilterList& out) {
          StrL("*.bmp;*.dib;*.gif;*.jpg;*.jpeg;*.jfif;*.jxr;*.hdp;*.wdp;*.png;*.tga;*.tif;*.tiff;*.webp;*.heic;*.heif;"
               "*.avif;*.jxl;*.jp2;*.j2k;*.jpx;*.jpf;*.jpm;*.j2c;*.ico"),
          true},
-        {_TRA("Text documents"), StrL("*.txt;*.log;*.nfo;file_id.diz;read.me;*.tcr"), true},
+        {_TRA("Text documents"), StrL("*.txt;*.log;*.nfo;file_id.diz;read.me;*.tcr;*.bib;*.sty;*.cls;*.bst"), true},
     };
 
     str::Builder allPat;

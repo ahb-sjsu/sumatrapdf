@@ -4,6 +4,7 @@
 
 Available in [pre-release](https://www.sumatrapdfreader.org/prerelease) builds.
 
+- LaTeX sources (.tex, .ltx, .latex) open as the typeset paper when MiKTeX or TeX Live is installed: the file is compiled with pdflatex (xelatex / lualatex via a `% !TEX program` comment), BibTeX or biber runs when anything is cited, and cross-references get their reruns. A chapter file compiles through its `% !TEX root`, or the sibling that `\input`s it. Saving the source re-compiles, and double-click-to-source works through the generated SyncTeX file. A compile error shows the first LaTeX error on the canvas. .bib, .sty, .cls and .bst open as text. See [LaTeX documents](LaTeX-documents.md)
 - **Open File Without History** (`CmdOpenFileNoHistory`) opens a document without adding it to File History or Windows Recent Documents. Palette-only; bind a shortcut if you want one (fixes #6121)
 - Clicking a PDF file-attachment annotation (the paperclip / pushpin on the page) whose file Sumatra can open (PDF, and other supported types) opens it in a new tab from memory, without writing a temp file. Other attached types still use Save Attachment on the context menu, or the OS handler (discussion #4276)
 - in the bookmarks and favorites trees, letter shortcuts run the command (e.g. `t` bound to Toggle Bookmarks) instead of type-ahead; arrows, Page Up/Down, Home, End, Enter and Space still navigate the tree

@@ -28,6 +28,13 @@
     V("read.me", FileType::Txt)        \
     V(".nfo", FileType::Txt)           \
     V(".tcr", FileType::Txt)           \
+    V(".bib", FileType::Txt)           \
+    V(".sty", FileType::Txt)           \
+    V(".cls", FileType::Txt)           \
+    V(".bst", FileType::Txt)           \
+    V(".tex", FileType::Tex)           \
+    V(".ltx", FileType::Tex)           \
+    V(".latex", FileType::Tex)         \
     V(".ps", FileType::PS)             \
     V(".ps.gz", FileType::PS)          \
     V(".eps", FileType::PS)            \
@@ -232,6 +239,14 @@ static bool IsPSFileContent(Str d) {
     return isPJL;
 }
 
+// a LaTeX root file, or one with a "% !TEX root" pointer to it
+static bool IsTexFileContent(Str d) {
+    if (str::ContainsI(d, StrL("\\documentclass")) || str::Contains(d, StrL("\\begin{document}"))) {
+        return true;
+    }
+    return str::StartsWithI(d, StrL("%!TEX")) || str::StartsWithI(d, StrL("% !TEX"));
+}
+
 // https://github.com/file/file/blob/7449263e1d6167233b3b6abfc3e4c13407d6432c/magic/Magdir/animation#L265
 // https://nokiatech.github.io/heif/technical.html
 // TODO: need to figure out heif vs. heic
@@ -424,6 +439,9 @@ static FileType DetectFileTypeFromData(Str d) {
     }
     if (IsPSFileContent(d)) {
         return FileType::PS;
+    }
+    if (IsTexFileContent(d)) {
+        return FileType::Tex;
     }
     if (HasTgaSignature(d)) {
         return FileType::Tga;

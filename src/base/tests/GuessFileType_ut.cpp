@@ -530,12 +530,21 @@ static void nonImageTest() {
     utassert(fti.nImages == 0);
 }
 
+static void texTest() {
+    utassert(GuessFileTypeFromData(StrL("% a paper\n\\documentclass[11pt]{article}\n")) == FileType::Tex);
+    utassert(GuessFileTypeFromData(StrL("% !TEX root = main.tex\n\\section{Intro}\n")) == FileType::Tex);
+    utassert(GuessFileTypeFromData(StrL("\\section{Intro}\nplain chapter text\n")) == FileType::Unknown);
+}
+
 static void extMapTest() {
     utassert(GuessFileTypeFromName(StrL("foo.pdf")) == FileType::PDF);
     utassert(GuessFileTypeFromName(StrL("foo.JP2")) == FileType::Jp2); // case-insensitive
     utassert(GuessFileTypeFromName(StrL("foo.epub")) == FileType::Epub);
     utassert(GuessFileTypeFromName(StrL("foo.tar")) == FileType::Tar);
     utassert(GuessFileTypeFromName(StrL("foo.ico")) == FileType::Ico);
+    utassert(GuessFileTypeFromName(StrL("paper.tex")) == FileType::Tex);
+    utassert(GuessFileTypeFromName(StrL("paper.LTX")) == FileType::Tex);
+    utassert(GuessFileTypeFromName(StrL("refs.bib")) == FileType::Txt);
     utassert(GuessFileTypeFromName(StrL("foo.unknown-ext")) == FileType::Unknown);
     // multi-dot / FB2 zip containers: longest registered suffix wins over bare .zip
     utassert(GuessFileTypeFromName(StrL("book.fb2.zip")) == FileType::Fb2z);
@@ -563,4 +572,5 @@ void GuessFileTypeTest() {
     heifTest();
     jxlTest();
     nonImageTest();
+    texTest();
 }

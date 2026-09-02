@@ -37,6 +37,7 @@ extern Kind kindEngineImage;
 extern Kind kindEngineImageDir;
 extern Kind kindEngineComicBooks;
 extern Kind kindEnginePostScript;
+extern Kind kindEngineTex;
 extern Kind kindEngineEpub;
 extern Kind kindEngineFb2;
 extern Kind kindEngineMobi;

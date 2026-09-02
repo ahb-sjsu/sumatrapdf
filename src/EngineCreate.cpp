@@ -244,6 +244,9 @@ bool IsSupportedFileType(FileType kind, bool enableEngineEbooks) {
     if (IsEnginePsSupportedFileType(kind)) {
         return true;
     }
+    if (kind == FileType::Tex) {
+        return true;
+    }
     if (kind == FileType::Lit) {
         return true;
     }
@@ -322,6 +325,13 @@ static EngineBase* CreateEngineForKind(FileType kind, FileType contentHintKind, 
     if (IsEnginePsSupportedFileType(kind)) {
         engine = CreateEnginePsFromFile(path);
         return engine;
+    }
+    if (kind == FileType::Tex) {
+        if (IsEngineTexAvailable()) {
+            return CreateEngineTexFromFile(path);
+        }
+        // no TeX distribution installed: show the source as text
+        return CreateEngineMupdfFromFile(path, FileType::Txt, dpi, pwdUI);
     }
     if (kind == FileType::Lit) {
         return CreateEngineLitFromFile(path, pwdUI);

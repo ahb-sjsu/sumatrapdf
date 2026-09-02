@@ -248,6 +248,7 @@ const sumatraFiles: FileGroup[] = [
       "EngineMupdf.*",
       "EngineMupdfImpl.*",
       "EnginePs.*",
+      "EngineTex.*",
       "EbookDoc.*",
       "EbookFormatter.*",
       "GumboHtmlParser.*",

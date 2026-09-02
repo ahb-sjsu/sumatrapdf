@@ -909,6 +909,7 @@ function engines_files()
     "EngineMupdf.*",
     "EngineMupdfImpl.*",
     "EnginePs.*",
+    "EngineTex.*",
     "GumboHtmlParser.*",
     "GumboHelpers.*",
     "HtmlFormatter.*",

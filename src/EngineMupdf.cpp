@@ -3556,7 +3556,7 @@ bool EngineMupdf::Load(Str path, PasswordUI* pwdUI) {
     FileType kind = GuessFileTypeFromName(path);
     // show .txt, .xml and other text files as plain text
     // using html engine
-    if (kind == FileType::Txt) {
+    if (kind == FileType::Txt || kind == FileType::Tex) {
         // synthesize a .html file from text file
         Str d = TxtFileToHTML(path);
         if (len(d) == 0) {

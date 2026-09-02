@@ -6,11 +6,13 @@
 #include "base/Win.h"
 #include "base/File.h"
 #include "base/Zip.h"
+#include "base/GuessFileType.h"
 
 #include "gui/UIModels.h"
 
 #include "DocController.h"
 #include "EngineBase.h"
+#include "EngineAll.h"
 #include "PdfSync.h"
 
 // size of the mark highlighting the location calculated by forward-search
@@ -157,6 +159,11 @@ TempStr Synchronizer::PrependDirTemp(Str filename) const {
 int Synchronizer::Create(Str pdffilename, EngineBase* engine, Synchronizer** sync) {
     if (!sync || !engine) {
         return PDFSYNCERR_INVALID_ARGUMENT;
+    }
+
+    Str texPdf = EngineTexPdfPath(engine);
+    if (texPdf) {
+        pdffilename = texPdf;
     }
 
     if (!str::EndsWithI(pdffilename, StrL(".pdf"))) {
